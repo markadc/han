@@ -2,6 +2,7 @@ package reqs
 
 import (
 	"fmt"
+	"han"
 	"testing"
 	"time"
 )
@@ -24,3 +25,13 @@ func TestNewClient_Get(t *testing.T) {
 //	}
 //	fmt.Printf("%v 响应长度 %v\n", res.Request.URL, res.StatusCode)
 //}
+
+func TestClient(t *testing.T) {
+	cli := &Client{Headers: han.S{"User-Agent": GenRandomUA()}}
+	link := "https://www.baidu.com"
+	resp, err := cli.Get(link, nil, nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(resp.Request.URL, resp.Request.Header)
+}
