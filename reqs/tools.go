@@ -1,8 +1,9 @@
-package http
+package reqs
 
 import (
 	"fmt"
 	"han"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -31,7 +32,7 @@ func FormDataEncode(formData han.S) []byte {
 	return encoded
 }
 
-// 获取 http https 的字符串
+// 获取 reqs https 的字符串
 func GetProtocols(protocol string) (string, string) {
 	var p1, p2 string
 	if strings.HasSuffix(protocol, "https") {
@@ -44,8 +45,15 @@ func GetProtocols(protocol string) (string, string) {
 	return p1, p2
 }
 
+// 为请求设置请求头
+func SetHeaders(req *http.Request, headers han.S) {
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
+}
+
 // 设置代理
-func MakeProxy(proxy string) (*http.Transport, error) {
+func MakeProxyTransport(proxy string) (*http.Transport, error) {
 	if proxy == "" {
 		return &http.Transport{}, nil
 	}
@@ -55,4 +63,18 @@ func MakeProxy(proxy string) (*http.Transport, error) {
 	}
 	transport := &http.Transport{Proxy: http.ProxyURL(proxyURL)}
 	return transport, nil
+}
+
+// 发送请求，获取响应
+func Done(client *http.Client, req *http.Request) (*Response, error) {
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = resp.Body.Close() }()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return &Response{Request: req, Text: string(body), StatusCode: resp.StatusCode}, nil
 }

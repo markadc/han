@@ -1,4 +1,4 @@
-package http
+package reqs
 
 import (
 	"encoding/json"
