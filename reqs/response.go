@@ -2,6 +2,7 @@ package reqs
 
 import (
 	"encoding/json"
+	"han"
 	"log"
 	"net/http"
 )
@@ -14,8 +15,8 @@ type Response struct {
 }
 
 // 获取响应的JSON格式数据
-func (r Response) JSON() (map[string]any, error) {
-	var jsonData map[string]any
+func (r Response) JSON() (han.A, error) {
+	var jsonData han.A
 	err := json.Unmarshal([]byte(r.Text), &jsonData)
 	if err != nil {
 		return nil, err

@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// 构造完整的请求URL
+// MakeURL 构造完整的请求URL
 func MakeURL(baseURL string, params han.S) string {
 	if !strings.Contains(baseURL, "?") {
 		baseURL += "?"
@@ -22,7 +22,7 @@ func MakeURL(baseURL string, params han.S) string {
 	return baseURL[:len(baseURL)-1]
 }
 
-// 对请求表单进行编码
+// FormDataEncode 对请求表单进行编码
 func FormDataEncode(formData han.S) []byte {
 	encoded := make([]byte, 0)
 	for key, value := range formData {
@@ -32,7 +32,7 @@ func FormDataEncode(formData han.S) []byte {
 	return encoded
 }
 
-// 获取 reqs https 的字符串
+// GetProtocols 获取 reqs https 的字符串
 func GetProtocols(protocol string) (string, string) {
 	var p1, p2 string
 	if strings.HasSuffix(protocol, "https") {
@@ -45,14 +45,14 @@ func GetProtocols(protocol string) (string, string) {
 	return p1, p2
 }
 
-// 为请求设置请求头
-func SetHeaders(req *http.Request, headers han.S) {
+// ReqSetHeaders 为请求设置请求头
+func ReqSetHeaders(req *http.Request, headers han.S) {
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
 }
 
-// 设置代理
+// MakeProxyTransport 设置代理
 func MakeProxyTransport(proxy string) (*http.Transport, error) {
 	if proxy == "" {
 		return &http.Transport{}, nil
@@ -65,7 +65,7 @@ func MakeProxyTransport(proxy string) (*http.Transport, error) {
 	return transport, nil
 }
 
-// 发送请求，获取响应
+// Done 获取响应
 func Done(client *http.Client, req *http.Request) (*Response, error) {
 	resp, err := client.Do(req)
 	if err != nil {
@@ -79,8 +79,9 @@ func Done(client *http.Client, req *http.Request) (*Response, error) {
 	return &Response{Request: req, Text: string(body), StatusCode: resp.StatusCode}, nil
 }
 
-// 发送请求，获取响应（默认client）
-func DefaultDone(req *http.Request) (*Response, error) {
+// Do 发送请求（默认client）
+func Do(req *http.Request, headers han.S) (*Response, error) {
+	ReqSetHeaders(req, headers)
 	client := &http.Client{}
 	return Done(client, req)
 }

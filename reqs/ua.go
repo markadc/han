@@ -43,7 +43,7 @@ func genRandomBrowser() string {
 }
 
 // 生成随机 User-Agent
-func GenRandomUA() string {
+func GenRandomUa() string {
 	os := genRandomOS()
 	browser := genRandomBrowser()
 	return fmt.Sprintf("Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) %s Safari/537.36", os, browser)
