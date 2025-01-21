@@ -10,7 +10,7 @@ import (
 )
 
 var wg sync.WaitGroup
-var client = reqs.NewClient(0, "", nil)
+var client = reqs.NewClient(0, "")
 
 func main() {
 	var username, page string
@@ -68,7 +68,7 @@ func main() {
 	fmt.Println("输入回车后结束：")
 	var a string
 	fmt.Scanln(&a)
-	fmt.Println("爬虫任务完成")
+	fmt.Printf("爬虫任务完成（%s 一共%s页）\n", username, page)
 
 }
 
