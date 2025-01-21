@@ -13,8 +13,7 @@ func Get(url string, headers, params han.S) (*Response, error) {
 		return nil, err
 	}
 	SetHeaders(req, headers)
-	client := &http.Client{}
-	return Done(client, req)
+	return DefaultDone(req)
 }
 
 // JSON请求体
@@ -28,8 +27,7 @@ func Post(URL string, headers, params han.S, payload han.S) (*Response, error) {
 		return nil, err
 	}
 	SetHeaders(req, headers)
-	client := &http.Client{}
-	return Done(client, req)
+	return DefaultDone(req)
 }
 
 // 请求表单

@@ -78,3 +78,9 @@ func Done(client *http.Client, req *http.Request) (*Response, error) {
 	}
 	return &Response{Request: req, Text: string(body), StatusCode: resp.StatusCode}, nil
 }
+
+// 发送请求，获取响应（默认client）
+func DefaultDone(req *http.Request) (*Response, error) {
+	client := &http.Client{}
+	return Done(client, req)
+}

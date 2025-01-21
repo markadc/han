@@ -10,7 +10,7 @@ import (
 )
 
 var wg sync.WaitGroup
-var client = reqs.NewClient(0, "")
+var client = reqs.NewClient(0, "", nil)
 
 func main() {
 	var username, page string

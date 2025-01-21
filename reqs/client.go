@@ -22,8 +22,8 @@ type Client struct {
 	Headers han.S
 }
 
-func NewClient(timeout time.Duration, proxy string) *Client {
-	return &Client{Timeout: timeout, Proxy: proxy}
+func NewClient(timeout time.Duration, proxy string, headers han.S) *Client {
+	return &Client{Timeout: timeout, Proxy: proxy, Headers: headers}
 }
 
 // 确认请求头的设置
@@ -54,6 +54,7 @@ func (c *Client) Do(req *http.Request, headers han.S) (*Response, error) {
 	return Done(client, req)
 }
 
+// GET
 func (c *Client) Get(url string, headers, params han.S) (*Response, error) {
 	req, err := http.NewRequest("GET", MakeURL(url, params), nil)
 	if err != nil {
@@ -62,7 +63,7 @@ func (c *Client) Get(url string, headers, params han.S) (*Response, error) {
 	return c.Do(req, headers)
 }
 
-// JSON请求体
+// POST JSON请求体
 func (c *Client) Post(URL string, headers, params han.S, payload han.S) (*Response, error) {
 	some, err := json.Marshal(payload)
 	if err != nil {
@@ -75,7 +76,7 @@ func (c *Client) Post(URL string, headers, params han.S, payload han.S) (*Respon
 	return c.Do(req, headers)
 }
 
-// 请求表单
+// POST 请求表单
 func (c *Client) PostForm(URL string, headers, params han.S, formData han.S) (*Response, error) {
 	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
 	if err != nil {
