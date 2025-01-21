@@ -3,15 +3,15 @@ package reqs
 import (
 	"bytes"
 	"encoding/json"
-	"han"
+	"kss"
 	"net/http"
 	"time"
 )
 
 // RequestConfigs 请求配置
 type RequestConfigs struct {
-	Params han.S
-	Header han.S
+	Params kss.S
+	Header kss.S
 	Proxy  string
 }
 
@@ -36,7 +36,7 @@ func (c *Client) GetClient() (*http.Client, error) {
 }
 
 // Do 发送请求
-func (c *Client) Do(req *http.Request, headers han.S) (*Response, error) {
+func (c *Client) Do(req *http.Request, headers kss.S) (*Response, error) {
 	ReqSetHeaders(req, headers)
 	client, err := c.GetClient()
 	if err != nil {
@@ -46,7 +46,7 @@ func (c *Client) Do(req *http.Request, headers han.S) (*Response, error) {
 }
 
 // Get GET请求
-func (c *Client) Get(url string, headers, params han.S) (*Response, error) {
+func (c *Client) Get(url string, headers, params kss.S) (*Response, error) {
 	req, err := http.NewRequest("GET", MakeURL(url, params), nil)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,7 @@ func (c *Client) Get(url string, headers, params han.S) (*Response, error) {
 }
 
 // Post POST请求（JSON请求体）
-func (c *Client) Post(URL string, headers, params han.S, payload han.S) (*Response, error) {
+func (c *Client) Post(URL string, headers, params kss.S, payload kss.S) (*Response, error) {
 	some, err := json.Marshal(payload)
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (c *Client) Post(URL string, headers, params han.S, payload han.S) (*Respon
 }
 
 // PostForm POST（请求表单）
-func (c *Client) PostForm(URL string, headers, params han.S, formData han.S) (*Response, error) {
+func (c *Client) PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
 	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
 	if err != nil {
 		return nil, err

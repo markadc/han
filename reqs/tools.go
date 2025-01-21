@@ -2,15 +2,15 @@ package reqs
 
 import (
 	"fmt"
-	"han"
 	"io"
+	"kss"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 // MakeURL 构造完整的请求URL
-func MakeURL(baseURL string, params han.S) string {
+func MakeURL(baseURL string, params kss.S) string {
 	if !strings.Contains(baseURL, "?") {
 		baseURL += "?"
 	} else {
@@ -23,7 +23,7 @@ func MakeURL(baseURL string, params han.S) string {
 }
 
 // FormDataEncode 对请求表单进行编码
-func FormDataEncode(formData han.S) []byte {
+func FormDataEncode(formData kss.S) []byte {
 	encoded := make([]byte, 0)
 	for key, value := range formData {
 		encoded = append(encoded, []byte(fmt.Sprintf("%s=%s&", key, value))...)
@@ -46,7 +46,7 @@ func GetProtocols(protocol string) (string, string) {
 }
 
 // ReqSetHeaders 为请求设置请求头
-func ReqSetHeaders(req *http.Request, headers han.S) {
+func ReqSetHeaders(req *http.Request, headers kss.S) {
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
@@ -80,7 +80,7 @@ func Done(client *http.Client, req *http.Request) (*Response, error) {
 }
 
 // Do 发送请求（默认client）
-func Do(req *http.Request, headers han.S) (*Response, error) {
+func Do(req *http.Request, headers kss.S) (*Response, error) {
 	ReqSetHeaders(req, headers)
 	client := &http.Client{}
 	return Done(client, req)

@@ -3,12 +3,12 @@ package reqs
 import (
 	"bytes"
 	"encoding/json"
-	"han"
+	"kss"
 	"net/http"
 )
 
 // Get GET请求
-func Get(url string, headers, params han.S) (*Response, error) {
+func Get(url string, headers, params kss.S) (*Response, error) {
 	req, err := http.NewRequest("GET", MakeURL(url, params), nil)
 	if err != nil {
 		return nil, err
@@ -17,7 +17,7 @@ func Get(url string, headers, params han.S) (*Response, error) {
 }
 
 // Post POST请求（JSON请求体）
-func Post(URL string, headers, params han.S, data han.S) (*Response, error) {
+func Post(URL string, headers, params kss.S, data kss.S) (*Response, error) {
 	some, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func Post(URL string, headers, params han.S, data han.S) (*Response, error) {
 }
 
 // PostForm POST请求（请求表单）
-func PostForm(URL string, headers, params han.S, formData han.S) (*Response, error) {
+func PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
 	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
 	if err != nil {
 		return nil, err

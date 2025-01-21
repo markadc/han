@@ -2,6 +2,7 @@ package reqs
 
 import (
 	"fmt"
+	"kss"
 	"math/rand"
 	"time"
 )
@@ -47,4 +48,10 @@ func GenRandomUa() string {
 	os := genRandomOS()
 	browser := genRandomBrowser()
 	return fmt.Sprintf("Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) %s Safari/537.36", os, browser)
+}
+
+// 生成随机 Headers
+func GenRandomHeaders() kss.S {
+	headers := kss.S{"User-Agent": GenRandomUa()}
+	return headers
 }

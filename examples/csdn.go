@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"han/reqs"
+	"kss/reqs"
 	"log"
 	"os"
 	"strconv"

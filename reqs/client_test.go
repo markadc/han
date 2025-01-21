@@ -28,7 +28,7 @@ func TestClient_UseProxy(t *testing.T) {
 func TestClient(t *testing.T) {
 	cli := &Client{}
 	link := "https://www.baidu.com"
-	resp, err := cli.Get(link, nil, nil)
+	resp, err := cli.Get(link, GenRandomHeaders(), nil)
 	if err != nil {
 		panic(err)
 	}
