@@ -64,6 +64,7 @@ func (c *Client) Post(URL string, headers, params kss.S, payload kss.S) (*Respon
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Set("Content-Type", "application/json")
 	return c.Do(req, headers)
 }
 
