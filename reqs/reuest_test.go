@@ -9,7 +9,7 @@ import (
 
 func TestGet(t *testing.T) {
 	url := "https://cn.bing.com/search"
-	headers := kss.S{"Crawler": "wauo", "Cookie": "626"}
+	headers := kss.S{"Crawler": "KSS", "Cookie": "626"}
 	params := kss.S{"q": "wauo"}
 	resp, err := Get(url, headers, params)
 	if err != nil {

@@ -16,6 +16,16 @@ func Get(url string, headers, params kss.S) (*Response, error) {
 	return Do(req, headers)
 }
 
+// PostForm POST请求（请求表单）
+func PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
+	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
+	if err != nil {
+		return nil, err
+	}
+	ResetContentType(req, headers, "application/x-www-form-urlencoded")
+	return Do(req, headers)
+}
+
 // Post POST请求（JSON请求体）
 func Post(URL string, headers, params kss.S, data kss.S) (*Response, error) {
 	some, err := json.Marshal(data)
@@ -26,16 +36,6 @@ func Post(URL string, headers, params kss.S, data kss.S) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	return Do(req, headers)
-}
-
-// PostForm POST请求（请求表单）
-func PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
-	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
-	if err != nil {
-		return nil, err
-	}
-	ReqSetHeaders(req, headers)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	ResetContentType(req, headers, "application/json")
 	return Do(req, headers)
 }

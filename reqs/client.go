@@ -54,6 +54,16 @@ func (c *Client) Get(url string, headers, params kss.S) (*Response, error) {
 	return c.Do(req, headers)
 }
 
+// PostForm POST（请求表单）
+func (c *Client) PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
+	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
+	if err != nil {
+		return nil, err
+	}
+	ResetContentType(req, headers, "application/x-www-form-urlencoded")
+	return c.Do(req, headers)
+}
+
 // Post POST请求（JSON请求体）
 func (c *Client) Post(URL string, headers, params kss.S, payload kss.S) (*Response, error) {
 	some, err := json.Marshal(payload)
@@ -64,17 +74,6 @@ func (c *Client) Post(URL string, headers, params kss.S, payload kss.S) (*Respon
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Content-Type", "application/json")
-	return c.Do(req, headers)
-}
-
-// PostForm POST（请求表单）
-func (c *Client) PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
-	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
-	if err != nil {
-		return nil, err
-	}
-	delete(headers, "Content-Type")
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	ResetContentType(req, headers, "application/json")
 	return c.Do(req, headers)
 }

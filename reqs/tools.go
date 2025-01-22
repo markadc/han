@@ -85,3 +85,9 @@ func Do(req *http.Request, headers kss.S) (*Response, error) {
 	client := &http.Client{}
 	return Done(client, req)
 }
+
+// ResetContentType 重新设置Content-Type
+func ResetContentType(req *http.Request, headers kss.S, newValue string) {
+	delete(headers, "Content-Type")
+	req.Header.Set("Content-Type", newValue)
+}
