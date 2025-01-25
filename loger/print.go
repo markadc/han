@@ -5,20 +5,15 @@ import (
 	"strings"
 )
 
-func FormatString(template string, values ...interface{}) string {
+func PyFormat(template string, values ...interface{}) string {
 	for _, value := range values {
 		template = strings.Replace(template, "{}", fmt.Sprintf("%v", value), 1)
 	}
 	return template
 }
 
-func Print(template string, values ...interface{}) {
-	result := FormatString(template, values...)
-	fmt.Println(result)
-}
-
-func ColorPrint(content string, color string) {
-	colorCodes := map[string]string{
+func Print(content string, color string) {
+	colors := map[string]string{
 		"black":         "30",
 		"red":           "31",
 		"green":         "32",
@@ -36,7 +31,7 @@ func ColorPrint(content string, color string) {
 		"light_cyan":    "96",
 		"light_white":   "97",
 	}
-	colorCode, exists := colorCodes[color]
+	colorCode, exists := colors[color]
 	if !exists {
 		fmt.Println(content)
 	} else {
