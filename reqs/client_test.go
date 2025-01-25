@@ -20,7 +20,7 @@ func TestClient_UseProxy(t *testing.T) {
 	cli := NewClient(5*time.Second, "http://localhost:10809")
 	res, err := cli.Get(srcURL, nil, nil)
 	if err != nil {
-		t.Fatalf("或者代理有误 %s", err)
+		t.Fatalf("或许代理有误 %s", err)
 	}
 	fmt.Printf("%v 响应长度 %v\n", res.Request.URL, res.StatusCode)
 }
