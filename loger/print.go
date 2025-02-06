@@ -12,6 +12,7 @@ func PyFormat(template string, values ...interface{}) string {
 	return template
 }
 
+// Print 带颜色的输出
 func Print(content string, color string) {
 	colors := map[string]string{
 		"black":         "30",
