@@ -1,6 +1,10 @@
 package kss
 
-import "log"
+import (
+	"log"
+	"os"
+	"path/filepath"
+)
 
 // Nget 实现了map多层取值，KEY不存在则返回默认值
 func Nget(data A, args []string, failed any) any {
@@ -25,4 +29,19 @@ func Nget(data A, args []string, failed any) any {
 		}
 	}
 	return data
+}
+
+// CreatFile 新建文件，父目录不存在则新建
+func CreatFile(filePath string) {
+	dir := filepath.Dir(filePath)
+	err := os.MkdirAll(dir, 0755)
+	if err != nil {
+		log.Fatal(err)
+	}
+	file, err := os.Create(filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() { _ = file.Close() }()
+	log.Printf("文件 %v 创建成功", filePath)
 }
