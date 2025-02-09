@@ -32,7 +32,7 @@ func Nget(data A, args []string, failed any) any {
 }
 
 // CreatFile 新建文件，父目录不存在则新建
-func CreatFile(filePath string) {
+func CreatFile(filePath string) *os.File {
 	dir := filepath.Dir(filePath)
 	err := os.MkdirAll(dir, 0755)
 	if err != nil {
@@ -44,4 +44,5 @@ func CreatFile(filePath string) {
 	}
 	defer func() { _ = file.Close() }()
 	log.Printf("文件 %v 创建成功", filePath)
+	return file
 }
