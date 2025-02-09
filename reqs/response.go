@@ -2,6 +2,7 @@ package reqs
 
 import (
 	"encoding/json"
+	"io"
 	"kss"
 	"log"
 	"net/http"
@@ -9,9 +10,11 @@ import (
 
 // 响应
 type Response struct {
-	StatusCode int
-	Text       string
 	Request    *http.Request
+	StatusCode int
+	Body       io.ReadCloser
+	Content    []byte
+	Text       string
 }
 
 // 获取响应的JSON格式数据
