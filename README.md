@@ -2,7 +2,6 @@
 
 - 像`python`的`requests`一样发送请求
 
-
 ```go
 package main
 

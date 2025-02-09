@@ -76,7 +76,7 @@ func Done(client *http.Client, req *http.Request) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Response{Request: req, StatusCode: resp.StatusCode, Body: resp.Body, Content: body, Text: string(body)}, nil
+	return &Response{origin: resp, Content: body, Text: string(body)}, nil
 }
 
 // Do 发送请求（默认client）
