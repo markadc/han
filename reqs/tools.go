@@ -32,7 +32,7 @@ func FormDataEncode(formData kss.S) []byte {
 	return encoded
 }
 
-// GetProtocols 获取 reqs https 的字符串
+// GetProtocols 获取 http https 的字符串
 func GetProtocols(protocol string) (string, string) {
 	var p1, p2 string
 	if strings.HasSuffix(protocol, "https") {
