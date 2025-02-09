@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestGget(t *testing.T) {
+func TestNget(t *testing.T) {
 	data := A{
 		"level1.2": 404,
 		"level1": A{
