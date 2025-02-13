@@ -6,22 +6,16 @@ import (
 )
 
 func TestNget(t *testing.T) {
-	data := A{
-		"level1.2": 404,
-		"level1": A{
-			"level2": A{
-				"level3": 3,
-			},
-			"level2.1": []int{1, 2, 3},
-		},
+	msg := A{
+		"user":    A{"name": "Wauo"},
+		"address": "china",
 	}
+	v := Nget(msg, []string{"user", "name"}, "~_~")
+	fmt.Println(v)
 
-	result := Nget(data, []string{"level1", "level2.1", "level3"}, "Nget failed")
-	fmt.Println(result)
+	v2 := Nget(msg, []string{"user", "job"}, "~_~")
+	fmt.Println(v2)
 
-	result = Nget(data, []string{"level1", "222"}, "Nget failed")
-	fmt.Println(result)
-
-	result = Nget(data, []string{"level1.2", "222"}, "Nget failed")
-	fmt.Println(result)
+	v3 := Nget(msg, []string{"address"}, "~_~")
+	fmt.Println(v3)
 }
