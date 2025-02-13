@@ -16,7 +16,7 @@ func TestNget(t *testing.T) {
 		},
 	}
 
-	result := Nget(data, []string{"level1", "level2.1", "level3"}, "gg")
+	result := Nget(data, []string{"level1", "level2.1", "level3"}, "Nget failed")
 	fmt.Println(result)
 
 	result = Nget(data, []string{"level1", "222"}, "Nget failed")
