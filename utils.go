@@ -31,7 +31,7 @@ func Nget(data A, args []string, failed any) any {
 	return data
 }
 
-// CreatDir 创建目录，父目录不存在则新建
+// CreatDir 创建目录（父目录不存在则新建）
 func CreatDir(dirPath string) {
 	err := os.MkdirAll(dirPath, 0755)
 	if err != nil {
@@ -40,8 +40,8 @@ func CreatDir(dirPath string) {
 	log.Printf("目录 %v 创建成功", dirPath)
 }
 
-// CreatFile 新建文件，父目录不存在则新建
-func CreatFile(filePath string) *os.File {
+// CreatFile 新建文件（父目录不存在则新建）
+func CreatFile(filePath string) {
 	dir := filepath.Dir(filePath)
 	err := os.MkdirAll(dir, 0755)
 	if err != nil {
@@ -53,5 +53,4 @@ func CreatFile(filePath string) *os.File {
 	}
 	defer func() { _ = file.Close() }()
 	log.Printf("文件 %v 创建成功", filePath)
-	return file
 }
