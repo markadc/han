@@ -38,7 +38,6 @@ func (c *Crawler) Get(url string, headers, params map[string]string) (*Response,
 		return nil, err
 	}
 	return c.Go(req)
-
 }
 
 func (c *Crawler) Post(api string, headers map[string]string, data []byte) (*Response, error) {
