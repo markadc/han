@@ -47,7 +47,7 @@ func (c *Client) Do(req *http.Request, headers kss.S) (*Response, error) {
 
 // Get GET请求
 func (c *Client) Get(url string, headers, params kss.S) (*Response, error) {
-	req, err := http.NewRequest("GET", MakeURL(url, params), nil)
+	req, err := http.NewRequest("GET", MakeUrl(url, params), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -55,8 +55,8 @@ func (c *Client) Get(url string, headers, params kss.S) (*Response, error) {
 }
 
 // PostForm POST（请求表单）
-func (c *Client) PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
-	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
+func (c *Client) PostForm(url string, headers, params kss.S, formData kss.S) (*Response, error) {
+	req, err := http.NewRequest("POST", MakeUrl(url, params), bytes.NewBuffer(FormDataEncode(formData)))
 	if err != nil {
 		return nil, err
 	}
@@ -65,12 +65,12 @@ func (c *Client) PostForm(URL string, headers, params kss.S, formData kss.S) (*R
 }
 
 // Post POST请求（JSON请求体）
-func (c *Client) Post(URL string, headers, params kss.S, payload kss.S) (*Response, error) {
+func (c *Client) Post(url string, headers, params kss.S, payload kss.S) (*Response, error) {
 	some, err := json.Marshal(payload)
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(some))
+	req, err := http.NewRequest("POST", MakeUrl(url, params), bytes.NewBuffer(some))
 	if err != nil {
 		return nil, err
 	}

@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-// MakeURL 构造完整的请求URL
-func MakeURL(baseURL string, params kss.S) string {
-	if !strings.Contains(baseURL, "?") {
-		baseURL += "?"
+// MakeUrl 构造完整的请求URL
+func MakeUrl(url string, params kss.S) string {
+	if !strings.Contains(url, "?") {
+		url += "?"
 	} else {
-		baseURL += "&"
+		url += "&"
 	}
 	for key, value := range params {
-		baseURL += fmt.Sprintf("%s=%s&", key, value)
+		url += fmt.Sprintf("%s=%s&", key, value)
 	}
-	return baseURL[:len(baseURL)-1]
+	return url[:len(url)-1]
 }
 
 // FormDataEncode 对请求表单进行编码

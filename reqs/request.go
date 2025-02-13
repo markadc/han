@@ -9,7 +9,7 @@ import (
 
 // Get GET请求
 func Get(url string, headers, params kss.S) (*Response, error) {
-	req, err := http.NewRequest("GET", MakeURL(url, params), nil)
+	req, err := http.NewRequest("GET", MakeUrl(url, params), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -17,8 +17,8 @@ func Get(url string, headers, params kss.S) (*Response, error) {
 }
 
 // PostForm POST请求（请求表单）
-func PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, error) {
-	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(FormDataEncode(formData)))
+func PostForm(url string, headers, params kss.S, formData kss.S) (*Response, error) {
+	req, err := http.NewRequest("POST", MakeUrl(url, params), bytes.NewBuffer(FormDataEncode(formData)))
 	if err != nil {
 		return nil, err
 	}
@@ -27,12 +27,12 @@ func PostForm(URL string, headers, params kss.S, formData kss.S) (*Response, err
 }
 
 // Post POST请求（JSON请求体）
-func Post(URL string, headers, params kss.S, data kss.S) (*Response, error) {
+func Post(url string, headers, params kss.S, data kss.S) (*Response, error) {
 	some, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest("POST", MakeURL(URL, params), bytes.NewBuffer(some))
+	req, err := http.NewRequest("POST", MakeUrl(url, params), bytes.NewBuffer(some))
 	if err != nil {
 		return nil, err
 	}
